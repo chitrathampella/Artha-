@@ -21,18 +21,18 @@ const Login = () => {
     const foundUser = users.find((user) => user.email === values.email);
 
     if (!foundUser) {
-      message.error("❌ User not found. Please register.");
+      message.error(" User not found. Please register.");
       return;
     }
 
     if (foundUser.password !== values.password) {
-      message.error("❌ Wrong password!");
+      message.error(" Wrong password!");
       return;
     }
 
     console.log("Found user before storing: ", foundUser);
 
-    // ✅ Store user info including `_id`
+    //  Store user info including `_id`
     localStorage.setItem(
       "user",
       JSON.stringify({
@@ -42,7 +42,7 @@ const Login = () => {
       })
     );
 
-    message.success("✅ Login successful!");
+    message.success(" Login successful!");
     navigate("/home");
   };
 
