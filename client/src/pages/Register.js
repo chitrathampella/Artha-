@@ -22,7 +22,7 @@ const Register = () => {
       // Check if the email is already registered
       const userExists = users.some((user) => user.email === values.email);
       if (userExists) {
-        message.error("❌ User already exists! Try logging in.");
+        message.error(" User already exists! Try logging in.");
         return;
       }
 
@@ -40,7 +40,7 @@ const Register = () => {
       users.push(newUser);
       localStorage.setItem("users", JSON.stringify(users));
 
-      message.success("✅ Registration successful! Please login.");
+      message.success(" Registration successful! Please login.");
       navigate("/login");
     }, 1000);
   };
