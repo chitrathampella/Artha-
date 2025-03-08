@@ -81,7 +81,7 @@ const deleteTransaction = async (req, res) => {
 };
 
 
-// ✅ Ensure addTransaction is defined BEFORE exporting
+//  Ensure addTransaction is defined BEFORE exporting
 const addTransaction = async (req, res) => {
   try {
     const newTransaction = new Transaction(req.body);
@@ -93,5 +93,5 @@ const addTransaction = async (req, res) => {
 };
 
 
-// ✅ Correctly export the functions
+//  Correctly export the functions
 module.exports = { addTransaction, getAllTransaction, editTransaction, deleteTransaction };
