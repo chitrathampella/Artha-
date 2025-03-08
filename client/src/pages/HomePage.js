@@ -16,7 +16,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [viewData, setViewData] = useState("table");
 
-  // ✅ Fetch Transactions
+  // Fetch Transactions
   const fetchTransactions = useCallback(async () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -29,7 +29,7 @@ const HomePage = () => {
         type,
       });
 
-      // ✅ Sort transactions by date (newest first)
+      // Sort transactions by date (newest first)
       const sortedTransactions = data
         .filter((txn) => txn.date) // Remove invalid dates
         .sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -47,7 +47,7 @@ const HomePage = () => {
     fetchTransactions();
   }, [fetchTransactions]);
 
-  // ✅ Process Data for Trend Graph
+  // Process Data for Trend Graph
   const processTrendData = (transactions) => {
     const groupedData = {};
 
@@ -63,7 +63,7 @@ const HomePage = () => {
   };
 
 
-  // ✅ Handle Edit Transaction
+  // Handle Edit Transaction
   const handleEdit = (record) => {
     setEditable(record);
     form.setFieldsValue({
@@ -73,7 +73,7 @@ const HomePage = () => {
     setShowModal(true);
   };
 
-  // ✅ Handle Delete Transaction
+  //  Handle Delete Transaction
   const handleDeleteTransaction = async (transactionId) => {
     try {
       await axios.post("http://localhost:5001/api/transactions/delete-transaction", { transactionId });
@@ -84,7 +84,7 @@ const HomePage = () => {
     }
   };
 
-  // ✅ Handle Submit (Add/Edit Transaction)
+  // Handle Submit (Add/Edit Transaction)
   const handleSubmit = async (values) => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -122,12 +122,12 @@ const HomePage = () => {
     }
   };
 
-  // ✅ Restrict Future Dates in DatePicker
+  //  Restrict Future Dates in DatePicker
   const disabledDate = (current) => {
     return current && current > dayjs().endOf("day");
   };
 
-  // ✅ Table Columns
+  //  Table Columns
   const columns = [
     {
       title: "Type",
@@ -184,7 +184,7 @@ const HomePage = () => {
           <Form.Item label="Amount" name="amount" rules={[{ required: true }]}><Input type="number" /></Form.Item>
           <Form.Item label="Date" name="date" rules={[{ required: true }]}><DatePicker style={{ width: "100%" }} disabledDate={disabledDate} /></Form.Item>
           <Form.Item label="Type" name="type" rules={[{ required: true, message: "Please select type!" }]}>
-  <Select onChange={(value) => setType(value)}>  {/* ✅ Update type state */}
+  <Select onChange={(value) => setType(value)}>  
     <Select.Option value="income">Income</Select.Option>
     <Select.Option value="expense">Expense</Select.Option>
   </Select>
