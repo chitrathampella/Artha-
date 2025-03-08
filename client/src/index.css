@@ -1,0 +1,247 @@
+/* Global Styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;  /* Modern font */
+}
+
+/* Content Area */
+.content {
+  min-height: 80vh;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #f8f9fa !important;  /* Updated for a modern look */
+  padding: 12px 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand h3 {
+  margin-right: 10px;
+  font-size: 24px;
+  color: #343a40;
+}
+
+.navbar-nav .nav-item .nav-link {
+  font-weight: 600;
+  color: #333;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: #007bff;
+}
+
+/* Register & Login Pages */
+.register-page, .login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  background: linear-gradient(to right, #ffe4c4, #f8f9fa);
+}
+
+/* Filters Section */
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* Table Styling */
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-table th,
+.transaction-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.transaction-table th {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+
+.transaction-table tr:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Buttons */
+button.primary {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button.primary:hover {
+  background: #0056b3;
+}
+
+/* Modal Styling */
+.ant-modal {
+  border-radius: 10px !important;
+}
+
+.ant-modal-header {
+  background: #f8f9fa;
+  color: #333;
+  border-radius: 10px 10px 0 0;
+  font-weight: bold;
+}
+
+.ant-modal-footer {
+  border-top: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px; /* Improved touch accessibility */
+  }
+
+  .navbar-brand h3 {
+    font-size: 20px;
+  }
+
+  .transaction-table th, 
+  .transaction-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+/* Login & Branding */
+.login-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-header h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 5px;
+}
+
+.login-header h4 {
+  font-size: 18px;
+  color: #666;
+}
+
+.artha-title {
+  font-size: 36px;
+  font-weight: bold;
+  color: #222;
+}
+
+.artha-subtitle {
+  font-size: 18px;
+  color: #666;
+}
+
+/* Sidebar Icons */
+.active-icon {
+  color: black;
+}
+
+.inactive-icon {
+  color: grey;
+}
+
+/* Circular Progress Section */
+.circular-progress-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Analytics Section */
+.analytics-container {
+  padding: 20px;
+  max-width: 900px; /* Increased max-width for better spacing */
+  margin: auto;
+}
+
+.progress-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.category-breakdown {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.category-card {
+  flex: 1;
+  min-width: 300px;
+  padding: 15px;
+}
+
+/* Progress Items (Fixed Alignment) */
+.progress-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.progress-item span {
+  font-weight: bold;
+  flex: 1;
+}
+
+/* Pie Chart Fix (Better Mobile Adaptability) */
+@media (max-width: 768px) {
+  .progress-container {
+    flex-direction: column;
+  }
+
+  .analytics-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px; /* Adjust as needed */
+}
+
+
