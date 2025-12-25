@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Form, Input, Button, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
-
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,31 +16,28 @@ const Login = () => {
   }, [navigate]);
 
   // Handle login form submission
-  const submitHandler = (values) => {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const foundUser = users.find((user) => user.email === values.email);
+  
+  const submitHandler = async (values) => {
+  try {
+    // 1. Tell your backend to check the database for this email/password
+    const { data } = await axios.post("/api/v1/users/login", values);
 
-    if (!foundUser) {
-      message.error(" User not found. Please register.");
-      return;
+    if (data.success) {
+      // 2. Save the REAL user from MongoDB into your localStorage
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...data.user, password: "" })
+      );
+      message.success("Login Successful!");
+      navigate("/"); // This takes you to the Home Dashboard
+    } else {
+      message.error(data.message || "Invalid Credentials");
     }
-
-    if (foundUser.password !== values.password) {
-      message.error(" Wrong password!");
-      return;
-    }
-
-    console.log("Found user before storing: ", foundUser);
-
-    //  Store user info including `_id`
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        _id: foundUser._id || "guest", // Ensure _id is stored
-        email: foundUser.email,
-        name: foundUser.name,
-      })
-    );
+  } catch (error) {
+    console.log(error);
+    message.error("Something went wrong with the server.");
+  }
+};
 
     message.success(" Login successful!");
     navigate("/home");
@@ -88,3 +85,4 @@ const Login = () => {
 };
 
 export default Login;
+
