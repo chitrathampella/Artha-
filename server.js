@@ -1,48 +1,44 @@
-require("dotenv").config(); 
-
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
-const morgan = require("morgan");  
+const morgan = require("morgan");
+const dotenv = require("dotenv");
+const colors = require("colors");
+const path = require("path");
 const connectDb = require("./config/connectDb");
 
+// config dot env file
+dotenv.config();
 
-console.log("Checking MONGO_URL:", process.env.MONGO_URL); 
-
-
+// database call
 connectDb();
 
+// rest object
 const app = express();
 
-
-app.use(morgan("dev")); 
+// middlewares
+app.use(morgan("dev"));
+app.use(express.json());
 app.use(cors());
-app.use(express.json()); 
-app.use(express.urlencoded({ extended: true })); 
 
+// routes
+// user routes
+app.use("/api/v1/users", require("./routes/userRoute"));
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+// transaction routes
+app.use("/api/v1/transactions", require("./routes/transactionRoutes"));
 
-
-app.use("/api/v1/users", require("./routes/userRoute"));  
-
-app.use("/api/transactions", require("./routes/transactionRoutes"));
-
-
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-app.post("/api/transactions/add", async (req, res) => {
-  console.log("Received request:", req.body);
-  // Process and save transaction
-});
-// Add this to serve the frontend from the backend URL
-const path = require('path');
+// static files (This serves the React build folder)
 app.use(express.static(path.join(__dirname, "./client/build")));
 
+// This catches all other requests and sends them to the Artha homepage
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
+// port
+const PORT = process.env.PORT || 5001;
+
+// listen server
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`.bgCyan.white);
+});
