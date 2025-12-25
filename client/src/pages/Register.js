@@ -3,7 +3,7 @@ import { Form, Input, Button, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 //import { v4 as uuidv4 } from "uuid";  // Import UUID to generate unique user IDs
 import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
-
+  import axios from "axios"; 
 
 const Register = () => {
   const navigate = useNavigate();
@@ -15,25 +15,20 @@ const Register = () => {
   }, [navigate]);
 
   // Handle registration form submission
-  import axios from "axios"; // Make sure to add this at the top!
-
-// Import axios at the top of Register.js
-import axios from "axios";
-
 const submitHandler = async (values) => {
   try {
-    // This calls your router.post('/register', registerController)
+    // 1. Send the registration data to your Backend Server (Port 5001)
     const { data } = await axios.post("/api/v1/users/register", values);
-    
+
     if (data.success) {
-      message.success("Registration Successful");
-      navigate("/login");
+      message.success("Registration Successful!");
+      navigate("/login"); // Only move to login if the DB saved the user
     } else {
       message.error(data.message);
     }
   } catch (error) {
-    console.log(error);
-    message.error("Registration failed. Check if server is running!");
+    console.log("Database Error:", error);
+    message.error("Failed to connect to the server. Check your terminal!");
   }
 };
       // Assign a unique ID (_id) to the new user
@@ -100,5 +95,6 @@ const submitHandler = async (values) => {
 };
 
 export default Register;
+
 
 
