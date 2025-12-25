@@ -17,18 +17,23 @@ const Register = () => {
   // Handle registration form submission
   import axios from "axios"; // Make sure to add this at the top!
 
+// Import axios at the top of Register.js
+import axios from "axios";
+
 const submitHandler = async (values) => {
   try {
-    // 1. Send the data to your Backend (Port 5001)
-    const res = await axios.post("/api/v1/users/register", values);
-
-    if (res.data.success) {
-      message.success("Registration successful! Now please login.");
-      navigate("/login"); // Move to login after DB saves the user
+    // This calls your router.post('/register', registerController)
+    const { data } = await axios.post("/api/v1/users/register", values);
+    
+    if (data.success) {
+      message.success("Registration Successful");
+      navigate("/login");
+    } else {
+      message.error(data.message);
     }
   } catch (error) {
     console.log(error);
-    message.error("Something went wrong with the database connection.");
+    message.error("Registration failed. Check if server is running!");
   }
 };
       // Assign a unique ID (_id) to the new user
@@ -95,4 +100,5 @@ const submitHandler = async (values) => {
 };
 
 export default Register;
+
 
