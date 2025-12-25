@@ -15,17 +15,22 @@ const Register = () => {
   }, [navigate]);
 
   // Handle registration form submission
-  const submitHandler = (values) => {
-    setTimeout(() => {
-      const users = JSON.parse(localStorage.getItem("users")) || [];
+  import axios from "axios"; // Make sure to add this at the top!
 
-      // Check if the email is already registered
-      const userExists = users.some((user) => user.email === values.email);
-      if (userExists) {
-        message.error(" User already exists! Try logging in.");
-        return;
-      }
+const submitHandler = async (values) => {
+  try {
+    // 1. Send the data to your Backend (Port 5001)
+    const res = await axios.post("/api/v1/users/register", values);
 
+    if (res.data.success) {
+      message.success("Registration successful! Now please login.");
+      navigate("/login"); // Move to login after DB saves the user
+    }
+  } catch (error) {
+    console.log(error);
+    message.error("Something went wrong with the database connection.");
+  }
+};
       // Assign a unique ID (_id) to the new user
       const newUser = {
         name: values.name,
@@ -90,3 +95,4 @@ const Register = () => {
 };
 
 export default Register;
+
