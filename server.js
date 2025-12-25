@@ -38,4 +38,11 @@ app.post("/api/transactions/add", async (req, res) => {
   console.log("Received request:", req.body);
   // Process and save transaction
 });
+// Add this to serve the frontend from the backend URL
+const path = require('path');
+app.use(express.static(path.join(__dirname, "./client/build")));
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
